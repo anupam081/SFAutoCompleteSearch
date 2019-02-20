@@ -1,17 +1,17 @@
 //anupam081
 //controller for autocomplete search
 
-public with sharing class autoCompleteController {
+public with sharing class AutoCompleteController {
     @AuraEnabled
-    public static List < sObject > fetchValues(String searchKeyWord, String ObjectName, List<sObject> ExcludeitemsList) {
+    public static List<sObject> fetchValues(String searchKeyWord, String objectName, List<sObject> excludeitemsList) {
         String searchKey = '%' + searchKeyWord + '%';              
         
-        // Create a Dynamic SOQL Query For Fetch Record List with LIMIT 5 and exclude already selected records  
-        String sQuery =  'select id, Name from ' +ObjectName;
-        sQuery += ' where Name LIKE: searchKey AND Id NOT IN : ExcludeitemsList order by createdDate DESC limit 5';
-        List <sObject> lstOfRecords = new List<sObject>();
-        List <sObject> lstOfRecords = Database.query(sQuery);        
+        // Dynamic SOQL Query   
+        String sQuery =  'select id, Name from ' +objectName;
+        sQuery += ' where Name LIKE: searchKey AND Id NOT IN : excludeitemsList order by createdDate DESC limit 5';
+        List<sObject> lstOfRecords = new List<sObject>();
+        lstOfRecords = Database.query(String.escapeSingleQuotes(sQuery));             
         
-        return returnList;
+        return lstOfRecords;
     }
 }
