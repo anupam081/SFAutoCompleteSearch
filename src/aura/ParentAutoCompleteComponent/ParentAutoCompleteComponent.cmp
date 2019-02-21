@@ -14,9 +14,14 @@
     <aura:attribute name="Message" type="String" default=""/>
     
     <!-- https://www.lightningdesignsystem.com/components/lookups/ --> 
+    <!--Header Part-->        
+    <div class="slds-page-header">
+            <h1 class="slds-page-header__title">Auto Complete Search </h1>
+            <p class="slds-text-body_small slds-line-height_reset">By anup081</p>
+    </div>
     
-    <div onmouseleave="{!c.onblur}" aura:id="searchRes" class="slds-form-element slds-lookup slds-is-close">
-        <label class="slds-form-element__label">{!v.label}</label>
+    <div onmouseleave="{!c.onblur}" aura:id="searchRes" class="slds-form-element slds-lookup slds-is-close">        
+        <label class="slds-form-element__label">{!v.label} </label>        
         <!--This part is for display search bar for lookup-->  
         <div class="slds-form-element__control">
             <div class="slds-input-has-icon slds-input-has-icon--right">

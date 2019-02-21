@@ -1,5 +1,5 @@
 //anupam081
-//controller for autocomplete search
+//controller for autocomplete search for account name
 
 public with sharing class AutoCompleteController {
     @AuraEnabled
