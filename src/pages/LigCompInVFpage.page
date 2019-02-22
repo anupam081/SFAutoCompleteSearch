@@ -1,0 +1,56 @@
+<!-- 
+    from anupam081
+    Lightining component inside VF page
+-->
+<apex:page controller="LigCompInVFpageController">
+    <apex:includeLightning />
+<apex:form>
+        <apex:pageBlock title="My Content" mode="edit" id="pageblk">
+            <apex:pageBlockButtons>
+                <apex:commandButton action="{!saveaccount}" value="Get" reRender="pgsec"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="My Content Section" columns="2" id="pgsec">
+               <apex:inputText value="{!accName}" id="accName"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Account Search" columns="1" id="LcDisplayId">
+               <div id="LcDisplayId"></div>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+     
+    
+        <script>
+            // Here 'AutoCompleteApp' Is Lightning Application Name
+            $Lightning.use("c:AutoCompleteApp", function() {
+            /* 'ParentAutoCompleteComponent' is Lightning Component Name which we are Displaying In Vf Page 
+            * syntax for create lightning component dynamically :
+            * $Lightning.createComponent(String type, Object attributes, String locator, function callback) */
+            $Lightning.createComponent("c:ParentAutoCompleteComponent",
+            { 
+            // Set Lightning Component Attributes Property before creating Lightning Component In Visualforce page 
+                objectAPIName : 'account',
+                IconName : 'standard:account',
+                lstSelectedRecords : 'sObject[]',
+                label : 'Account Name'
+            },
+        "LcDisplayId",
+            function(component) {
+                // create component Callback, Lightning Component has been Created,
+                // Now you can set more lightning Component attributes here,
+                // and do more cool stuff here   
+                component.set("v.lstSelectedRecords" , '{!selectedLookUpRecords}');             
+                console.log("Component created!");
+                
+            },
+            function(){
+                    $A.eventService.addHandler({ "event": "c:SelectedObjEvent", "handler" : visualForceFunction});
+            });
+        });
+
+        //handler called in lightning out function
+        var visualForceFunction = function(event){
+            var myEventData = event.getParam("data");
+            alert(myEventData);
+        }
+        </script>
+</apex:page>
